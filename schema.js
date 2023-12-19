@@ -1,11 +1,12 @@
 console.log("Running schema file ...");
 const pgp = require("pg-promise")();
 const db = pgp({
-  connect: "postgres://pursuit:Buyenjoy20#@localhost:3333/student_dashboard",
+  connect: "postgres://ariunaa:pursuit1234@localhost/students_dashboard",
 });
 
 console.log("DB", db);
 
+// psql -U postgres -f src/db/schema.js 
 (async function () {
   await db.query(`DROP TABLE IF EXISTS grades`);
   await db.query(`DROP TABLE IF EXISTS students`);

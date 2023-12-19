@@ -8,18 +8,18 @@ router.use(bodyParser.json());
 
 const pgp = require("pg-promise")();
 const db = pgp({
-  connect: "postgres://pursuit:Buyenjoy20#@localhost:3333/student_dashboard",
+  connect: "postgres://ariunaa:pursuit1234@localhost/students_dashboard",
 });
 
 router.get("/", (req, res) => {
-  db.result("SELECT * FROM Students").then((allData) => {
+  db.result("SELECT * FROM students").then((allData) => {
     res.send({ students: allData.rows });
   });
 });
 
 router.get("/:id", (req, res) => {
   const { id } = req.params;
-  db.result(`SELECT * FROM Students WHERE students.id = $1`, [id]).then(
+  db.result(`SELECT * FROM students WHERE students.id = $1`, [id]).then(
     (allData) => {
       res.send({ students: allData.rows });
     }
@@ -46,7 +46,7 @@ router.put("/:id", (req, res) => {
   const { first_name, last_name, email, pic, skill, company, city } = body;
 
   db.result(
-    `UPDATE Students SET first_name=$1, last_name=$2, email=$3, pic=$4, skill=$5, company=$6, city=$7 WHERE id=$8 RETURNING *`,
+    `UPDATE students SET first_name=$1, last_name=$2, email=$3, pic=$4, skill=$5, company=$6, city=$7 WHERE id=$8 RETURNING *`,
     [first_name, last_name, email, pic, skill, company, city, id]
   ).then((allData) => {
     res.send({ students: allData.rows });
